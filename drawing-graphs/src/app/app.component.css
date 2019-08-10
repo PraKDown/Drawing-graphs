@@ -1,0 +1,28 @@
+header {
+  height: 50px;
+  background-color: #05A5B1;
+}
+
+main {
+  flex: 1 1 auto;
+  background-color: #343a40;
+  overflow: auto;
+}
+
+footer {
+  background-color: #05A5B1;
+  height: 20px;
+  margin-bottom: 0;
+}
+
+footer > h3 {
+  font-size: 10px;
+}
+
+div.btn-group {
+  height: 80%;
+}
+
+h3::before {
+  content: "©";
+}
