@@ -1,10 +1,14 @@
 <header class='container-12 p-0 m-0 row justify-content-center align-items-center'>
   <div class="btn-group col-4">
-    <button type="button" class="btn btn-dark">Main</button>
-    <button type="button" class="btn btn-outline-dark">Graph</button>
+    <button type="button" class="btn def" routerLink="/"
+    routerLinkActive="btn-dark"
+    [routerLinkActiveOptions]="{exact: true}">Main</button>
+    <button type="button" class="btn def" routerLink="/graph" routerLinkActive="btn-dark">Graph</button>
   </div>
 </header>
-<main></main>
+<main>
+  <router-outlet></router-outlet>
+</main>
 <footer><h3>Vyacheslav Tkachev</h3></footer>
 
 
