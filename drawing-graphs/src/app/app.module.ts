@@ -4,7 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LegendComponent } from './legend/legend.component';
 import { GraphComponent } from './graph/graph.component';
+
 import { RoutingModule } from './routing/routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgColorModule } from 'ng-color';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +18,10 @@ import { RoutingModule } from './routing/routing.module';
   ],
   imports: [
     BrowserModule,
-    RoutingModule
+    RoutingModule,
+    BrowserAnimationsModule,
+    NgColorModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

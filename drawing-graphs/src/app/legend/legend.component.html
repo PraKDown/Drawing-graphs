@@ -1,1 +1,15 @@
-<p>legend works!</p>
+<div class="container-12 m-0 p-0 row justify-content-around" style="height: 100%;">
+  <div class="d-flex align-items-center justify-content-around flex-column col-5">
+    <div class="col-6">
+      <label for="coordinates">Coordinates</label>
+      <textarea class="form-control" id="coordinates" placeholder="x:y" (change)="changeCoordinates($event)"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" id="name" placeholder="line1">
+    </div>
+    <ng-color-circle [(ngModel)]="color"></ng-color-circle>
+  </div>
+  <button class="btn"></button>
+  <div class="col-5"></div>
+</div>

@@ -1,0 +1,31 @@
+button {
+  width: 5%;
+  background: #48525a no-repeat center url("https://img.icons8.com/wired/512/000000/enter-2.png");
+  background-size: contain;
+  box-shadow: 0px 0px 15px 4px rgba(0,0,0,0.4);
+}
+
+textarea {
+  background-color: #2c3133;
+  text-align: center;
+  height: 90%;
+  resize: none;
+}
+
+textarea::-webkit-input-placeholder {
+  text-align: center;
+}
+
+textarea:focus {
+  background-color: #2c3133;
+  text-align: center;
+}
+
+span {
+  color: white;
+}
+
+ng-color-circle {
+  width: 150px;
+  height: 150px;
+}
