@@ -1,15 +1,20 @@
-<div class="container-12 m-0 p-0 row justify-content-around" style="height: 100%;">
-  <div class="d-flex align-items-center justify-content-around flex-column col-5">
-    <div class="col-6">
-      <label for="coordinates">Coordinates</label>
-      <textarea class="form-control" id="coordinates" placeholder="x:y" (change)="changeCoordinates($event)"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input class="form-control" id="name" placeholder="line1">
-    </div>
-    <ng-color-circle [(ngModel)]="color"></ng-color-circle>
+<div class="d-flex align-items-center justify-content-around flex-column params">
+  <div class="col-6">
+    <label for="coordinates">Coordinates</label>
+    <textarea class="form-control" id="coordinates" placeholder="x:y" #coordinates></textarea>
   </div>
-  <button class="btn"></button>
-  <div class="col-5"></div>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input class="form-control" placeholder="line1" [(ngModel)]="name">
+  </div>
+  <ng-color-circle [(ngModel)]="color"></ng-color-circle>
+</div>
+<button class="btn" (click)="addChart()"></button>
+<div class="d-flex flex-column align-items-center legend">
+  <div class="row line mt-3 mb-3 justify-content-around align-items-center"
+    *ngFor="let chart of dataGraphService.graphs; let i = index">
+    <span>{{chart.name}}</span>
+    <div [style.backgroundColor]="chart.color" class="color"></div>
+    <div class="delete" (click)="deleteChart(i)"></div>
+  </div>
 </div>

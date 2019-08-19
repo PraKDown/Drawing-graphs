@@ -1,8 +1,33 @@
+:host {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+@keyframes turn {
+  from {
+    transform: rotate(0deg)
+  }
+
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+div.params {
+  position: absolute;
+  width: 40%;
+  height: 100%;
+  left: 3%
+}
+
 button {
   width: 5%;
   background: #48525a no-repeat center url("https://img.icons8.com/wired/512/000000/enter-2.png");
   background-size: contain;
-  box-shadow: 0px 0px 15px 4px rgba(0,0,0,0.4);
+  box-shadow: 0px 0px 15px 4px rgba(0, 0, 0, 0.4);
 }
 
 textarea {
@@ -28,4 +53,41 @@ span {
 ng-color-circle {
   width: 150px;
   height: 150px;
+}
+
+div.legend {
+  position: absolute;
+  width: 45%;
+  height: 100%;
+  left: 55%;
+  overflow: auto;
+}
+
+div.line {
+  height: 40px;
+  width: 95%;
+  background-color: #2c3133;
+  border-radius: 10px;
+}
+
+div.line>div.color {
+  height: 6px;
+  width: 50%;
+  border-radius: 10px;
+}
+
+div.delete {
+  width: 40px;
+  height: 40px;
+  background: no-repeat center url("https://img.icons8.com/color/96/000000/delete-forever.png");
+  background-size: contain;
+  cursor: pointer;
+}
+
+div.delete:hover {
+  animation: turn 1s infinite ease-in-out;
+}
+
+div.line>span {
+  font-size: 22px;
 }
