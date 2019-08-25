@@ -1,0 +1,41 @@
+div.scheme {
+  height: 99%;
+  width: 98%;
+  overflow: hidden;
+  position: relative;
+  left: 1%;
+  bottom: 1%;
+}
+
+div.scheme>div {
+  position: absolute;
+}
+
+div.scheme>svg {
+  position: absolute;
+}
+
+svg.xLine {
+  top: 95%;
+}
+
+div.axis {
+  width: 100%;
+  height: 100%;
+}
+
+div.chart {
+  width: 94%;
+  height: 93%;
+  left: 6%;
+  top: 2%;
+  overflow: hidden;
+}
+
+.chart svg {
+  cursor: crosshair;
+}
+
+svg {
+  position: relative;
+}

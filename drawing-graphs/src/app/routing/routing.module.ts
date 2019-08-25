@@ -5,8 +5,9 @@ import { LegendComponent } from '../legend/legend.component';
 import { GraphComponent } from '../graph/graph.component';
 
 const routes: Routes = [
-  { path: '', component: LegendComponent },
-  { path: 'graph', component: GraphComponent }
+  { path: 'main', component: LegendComponent },
+  { path: 'graph', component: GraphComponent },
+  { path: '**', redirectTo: 'main' }
 ];
 
 @NgModule({

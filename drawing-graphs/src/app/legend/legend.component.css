@@ -91,3 +91,7 @@ div.delete:hover {
 div.line>span {
   font-size: 22px;
 }
+
+label {
+  color: white;
+}

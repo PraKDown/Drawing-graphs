@@ -1,1 +1,15 @@
-<p>graph works!</p>
+<div class="scheme" (resized)="resizeChart()">
+  <div class="chart">
+    <svg (mousedown)="move = true" (mouseup)="stopAction()" (mousemove)="drawPosition($event)"></svg>
+  </div>
+  <svg class="xLine" width="100%" height="4%">
+    <line x1="0" y1="0" x2="100%" y2="0" stroke="rgb(160, 160, 160)" stroke-width="4"></line>
+  </svg>
+  <svg class="yLine" width="6.1%" height="100%">
+    <line x1="100%" y1="2%" x2="100%" y2="100%" stroke="rgb(160, 160, 160)" stroke-width="4"></line>
+  </svg>
+  <div class="axis">
+    <svg width="100%" height="100%" (mousedown)="move = true" (mouseup)="stopAction()"
+      (mousemove)="drawPosition($event)" (wheel)="changeSize($event)" (mouseleave)="stopAction()"></svg>
+  </div>
+</div>

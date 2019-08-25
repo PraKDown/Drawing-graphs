@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~8.0.1",
     "@angular/platform-browser-dynamic": "~8.0.1",
     "@angular/router": "~8.0.1",
+    "@katze/ngx-d3": "^0.2.1",
     "bootstrap": "^4.3.1",
     "ng-color": "^4.1.1",
     "rxjs": "~6.4.0",
