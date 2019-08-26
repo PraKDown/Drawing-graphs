@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { NgxD3Service } from '@katze/ngx-d3';
 import { DataGraphService } from '../data-graph.service';
 
@@ -32,31 +32,16 @@ export class GraphComponent implements OnInit {
     private dataGraphService: DataGraphService) { }
 
   ngOnInit() {
-    if (this.dataGraphService.graphs.length === 0) {
-      return;
-    }
-    this.dataGraphService.graphs.forEach((chart) => {
-      const maxXV = this.d3.max(chart.data, function (d) { return d['x']; });
-      const minXV = this.d3.min(chart.data, function (d) { return d['x']; });
-      const maxYV = this.d3.max(chart.data, function (d) { return d['y']; });
-      const minYV = this.d3.min(chart.data, function (d) { return d['y']; });
-      if (this.maxXValue === undefined || this.maxXValue < maxXV) {
-        this.maxXValue = maxXV;
-      }
-      if (this.minXValue === undefined || this.minXValue > minXV) {
-        this.minXValue = minXV;
-      }
-      if (this.maxYValue === undefined || this.maxYValue < maxYV) {
-        this.maxYValue = maxYV;
-      }
-      if (this.minYValue === undefined || this.minYValue > minYV) {
-        this.minYValue = minYV;
-      }
-    });
-    this.createChart();
+    this.redrawing();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.createChart('resize');
     this.dataGraphService.graphs.forEach((chart) => {
       this.createLine(chart.data, chart.color);
     });
+    this.moveChart();
   }
 
   createChart(scale?: string) {
@@ -123,15 +108,7 @@ export class GraphComponent implements OnInit {
       .domain([this.maxYValue, this.minYValue])
       .range([0, yAxisLength]);
 
-    // const timeSet = this.d3.timeHour.range(this.minDate, this.maxDate);
-    // let divider = Math.floor(timeSet.length / this.ticks);
-    // if (divider === 0) {
-    //   divider = 1;
-    // }
-
     const xAxis = this.d3.axisBottom(this.scaleX);
-      // .tickValues(timeSet.filter((elem, index) => index % divider === 0))
-      // .tickFormat(this.d3.timeFormat('%e.%m %H:%M'));
 
     const yAxis = this.d3.axisLeft(this.scaleY);
 
@@ -145,7 +122,10 @@ export class GraphComponent implements OnInit {
       .attr('height', `${yAxisLength}`);
 
     const chart = this.chart;
-    this.d3.selectAll('g.x-axis g.tick').each(function (d) {
+
+    const xTicks = this.d3.select('g.x-axis');
+    xTicks.select('path').attr('stroke', 'white');
+    const gXTick = xTicks.selectAll('g.tick').each(function (d) {
       const transform = d3.select(this).attr('transform');
       chart.append('line').attr('x1', 0)
         .attr('y1', 0)
@@ -154,12 +134,16 @@ export class GraphComponent implements OnInit {
         .attr('stroke-opacity', '0.2')
         .attr('y2', yAxisLength)
         .attr('transform', transform);
-    })
-    .select('text')
-    .attr('fill', 'white')
-    .attr('font-weight', 'bold');
+    });
+    gXTick.select('text')
+      .attr('fill', 'white')
+      .attr('font-weight', 'bold');
+    gXTick.select('line')
+      .attr('stroke', 'white');
 
-    this.d3.selectAll('g.y-axis g.tick').each(function (d) {
+    const yTicks = this.d3.selectAll('g.y-axis');
+    yTicks.select('path').attr('stroke', 'white');
+    const gYTick = yTicks.selectAll('g.tick').each(function (d) {
       const transform = d3.select(this).attr('transform');
       chart.append('line').attr('x1', 0)
         .attr('y1', 0)
@@ -169,9 +153,13 @@ export class GraphComponent implements OnInit {
         .attr('y2', 0)
         .attr('transform', transform);
     })
-    .select('text')
-    .attr('fill', 'white')
-    .attr('font-weight', 'bold');
+
+    gYTick.select('text')
+      .attr('fill', 'white')
+      .attr('font-weight', 'bold');
+
+    gYTick.select('line')
+      .attr('stroke', 'white');
   }
 
   createLine(data, color) {
@@ -184,7 +172,6 @@ export class GraphComponent implements OnInit {
     this.chart.append('path')
       .attr('d', line(data))
       .attr('fill', 'none')
-      // .attr('shape-rendering', 'optimizeSpeed')
       .style('stroke', color)
       .style('stroke-width', 2)
   }
@@ -300,6 +287,52 @@ export class GraphComponent implements OnInit {
         .attr('y', `${this.chartHeight + this.marginTop + 2}`)
         .attr('fill', 'black');
     }
+  }
+
+  redrawing() {
+    if (this.dataGraphService.graphs.length === 0) {
+      return;
+    }
+    this.dataGraphService.graphs.forEach((chart) => {
+      const maxXV = this.d3.max(chart.data, function (d) { return d['x']; });
+      const minXV = this.d3.min(chart.data, function (d) { return d['x']; });
+      const maxYV = this.d3.max(chart.data, function (d) { return d['y']; });
+      const minYV = this.d3.min(chart.data, function (d) { return d['y']; });
+      if (this.maxXValue === undefined || this.maxXValue < maxXV) {
+        this.maxXValue = maxXV;
+      }
+      if (this.minXValue === undefined || this.minXValue > minXV) {
+        this.minXValue = minXV;
+      }
+      if (this.maxYValue === undefined || this.maxYValue < maxYV) {
+        this.maxYValue = maxYV;
+      }
+      if (this.minYValue === undefined || this.minYValue > minYV) {
+        this.minYValue = minYV;
+      }
+    });
+    this.createChart();
+    this.dataGraphService.graphs.forEach((chart) => {
+      this.createLine(chart.data, chart.color);
+    });
+  }
+
+  changeSize(event) {
+    if (event.deltaY < 0) {
+      this.createChart('increase');
+    } else if (event.deltaY > 0) {
+      if (this.chart.node().clientWidth / 1.09 < this.chartWidth) {
+        return;
+      }
+      this.createChart('reduce');
+    } else {
+      return;
+    }
+    this.left -= (event.layerX + this.marginLeft - this.chartWidth / 2);
+    this.dataGraphService.graphs.forEach((chart) => {
+      this.createLine(chart.data, chart.color);
+    });
+    this.moveChart();
   }
 
 }

@@ -1,5 +1,6 @@
 @import './reset.css';
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 app-root {
   height: 100vh;

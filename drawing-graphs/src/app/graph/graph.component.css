@@ -5,6 +5,7 @@ div.scheme {
   position: relative;
   left: 1%;
   bottom: 1%;
+  user-select: none;
 }
 
 div.scheme>div {
