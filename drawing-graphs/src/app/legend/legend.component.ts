@@ -15,7 +15,7 @@ export class LegendComponent implements OnInit {
   name: string;
 
   constructor(
-    private dataGraphService: DataGraphService,
+    public dataGraphService: DataGraphService,
     private snackBar: MatSnackBar
   ) { }
 
